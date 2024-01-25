@@ -209,13 +209,22 @@ There are some known data issues with this table so be careful when using this i
 | 10       | 1         | 2020-01-11 18:50:20 | 10km     | 10minutes  | null                    |
 
 
-
-Table 4: pizza_names
+## Table 4: pizza_names
 At the moment - Pizza Runner only has 2 pizzas available the Meat Lovers or Vegetarian!
 
-pizza_id	pizza_name
-1	Meat Lovers
-2	Vegetarian
+    SELECT *
+    FROM pizza_runner.pizza_names;
+
+| pizza_id | pizza_name |
+| -------- | ---------- |
+| 1        | Meatlovers |
+| 2        | Vegetarian |
+
+
+
+
+
+
 Table 5: pizza_recipes
 Each pizza_id has a standard set of toppings which are used as part of the pizza recipe.
 
