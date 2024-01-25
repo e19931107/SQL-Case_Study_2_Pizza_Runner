@@ -151,15 +151,9 @@ The runners table shows the registration_date for each new runner
 | 3         | 2021-01-08        |
 | 4         | 2021-01-15        |
 
+
+
 ---
-
-[View on DB Fiddle](https://www.db-fiddle.com/f/7VcQKQwsS3CTkGRFG7vu98/2320)
-
-
-
-
-
-
 Table 2: customer_orders
 Customer pizza orders are captured in the customer_orders table with 1 row for each individual pizza that is part of the order.
 
@@ -169,21 +163,28 @@ Note that customers can order multiple pizzas in a single order with varying exc
 
 The exclusions and extras columns will need to be cleaned up before using them in your queries.
 
-order_id	customer_id	pizza_id	exclusions	extras	order_time
-1	101	1	 	 	2021-01-01 18:05:02
-2	101	1	 	 	2021-01-01 19:00:52
-3	102	1	 	 	2021-01-02 23:51:23
-3	102	2	 	NaN	2021-01-02 23:51:23
-4	103	1	4	 	2021-01-04 13:23:46
-4	103	1	4	 	2021-01-04 13:23:46
-4	103	2	4	 	2021-01-04 13:23:46
-5	104	1	null	1	2021-01-08 21:00:29
-6	101	2	null	null	2021-01-08 21:03:13
-7	105	2	null	1	2021-01-08 21:20:29
-8	102	1	null	null	2021-01-09 23:54:33
-9	103	1	4	1, 5	2021-01-10 11:22:59
-10	104	1	null	null	2021-01-11 18:34:49
-10	104	1	2, 6	1, 4	2021-01-11 18:34:49
+    SELECT *
+    FROM pizza_runner.customer_orders;
+
+| order_id | customer_id | pizza_id | exclusions | extras | order_time          |
+| -------- | ----------- | -------- | ---------- | ------ | ------------------- |
+| 1        | 101         | 1        |            |        | 2020-01-01 18:05:02 |
+| 2        | 101         | 1        |            |        | 2020-01-01 19:00:52 |
+| 3        | 102         | 1        |            |        | 2020-01-02 23:51:23 |
+| 3        | 102         | 2        |            |        | 2020-01-02 23:51:23 |
+| 4        | 103         | 1        | 4          |        | 2020-01-04 13:23:46 |
+| 4        | 103         | 1        | 4          |        | 2020-01-04 13:23:46 |
+| 4        | 103         | 2        | 4          |        | 2020-01-04 13:23:46 |
+| 5        | 104         | 1        | null       | 1      | 2020-01-08 21:00:29 |
+| 6        | 101         | 2        | null       | null   | 2020-01-08 21:03:13 |
+| 7        | 105         | 2        | null       | 1      | 2020-01-08 21:20:29 |
+| 8        | 102         | 1        | null       | null   | 2020-01-09 23:54:33 |
+| 9        | 103         | 1        | 4          | 1, 5   | 2020-01-10 11:22:59 |
+| 10       | 104         | 1        | null       | null   | 2020-01-11 18:34:49 |
+| 10       | 104         | 1        | 2, 6       | 1, 4   | 2020-01-11 18:34:49 |
+
+
+
 Table 3: runner_orders
 After each orders are received through the system - they are assigned to a runner - however not all orders are fully completed and can be cancelled by the restaurant or the customer.
 
