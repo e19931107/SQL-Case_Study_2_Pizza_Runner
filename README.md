@@ -221,29 +221,36 @@ At the moment - Pizza Runner only has 2 pizzas available the Meat Lovers or Vege
 | 2        | Vegetarian |
 
 
-
-
-
-
-Table 5: pizza_recipes
+## Table 5: pizza_recipes
 Each pizza_id has a standard set of toppings which are used as part of the pizza recipe.
 
-pizza_id	toppings
-1	1, 2, 3, 4, 5, 6, 8, 10
-2	4, 6, 7, 9, 11, 12
-Table 6: pizza_toppings
+    SELECT *
+    FROM pizza_runner.pizza_recipes;
+
+| pizza_id | toppings                |
+| -------- | ----------------------- |
+| 1        | 1, 2, 3, 4, 5, 6, 8, 10 |
+| 2        | 4, 6, 7, 9, 11, 12      |
+
+
+## Table 6: pizza_toppings
 This table contains all of the topping_name values with their corresponding topping_id value
 
-topping_id	topping_name
-1	Bacon
-2	BBQ Sauce
-3	Beef
-4	Cheese
-5	Chicken
-6	Mushrooms
-7	Onions
-8	Pepperoni
-9	Peppers
-10	Salami
-11	Tomatoes
-12	Tomato Sauce
+    SELECT *
+    FROM pizza_runner.pizza_toppings;
+
+| topping_id | topping_name |
+| ---------- | ------------ |
+| 1          | Bacon        |
+| 2          | BBQ Sauce    |
+| 3          | Beef         |
+| 4          | Cheese       |
+| 5          | Chicken      |
+| 6          | Mushrooms    |
+| 7          | Onions       |
+| 8          | Pepperoni    |
+| 9          | Peppers      |
+| 10         | Salami       |
+| 11         | Tomatoes     |
+| 12         | Tomato Sauce |
+
