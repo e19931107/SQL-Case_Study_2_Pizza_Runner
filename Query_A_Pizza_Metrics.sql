@@ -9,8 +9,20 @@ FROM pizza_runner.customer_orders;
 
 
 -- How many unique customer orders were made?
-
+SELECT
+DISTINCT customer_id,
+COUNT(*) AS No_of_pizzas_ordered
+FROM pizza_runner.customer_orders
+GROUP BY customer_id;
+  
 -- Result:
+| customer_id | No_of_pizzas_ordered |
+| ----------- | -------------------- |
+| 101         | 3                    |
+| 102         | 3                    |
+| 103         | 4                    |
+| 104         | 3                    |
+| 105         | 1                    |
 
 
 -- How many successful orders were delivered by each runner?
