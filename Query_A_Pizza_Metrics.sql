@@ -26,8 +26,19 @@ GROUP BY customer_id;
 
 
 -- How many successful orders were delivered by each runner?
+SELECT
+DISTINCT runner_id,
+COUNT(*) AS delivered_orders
+FROM pizza_runner.runner_orders
+WHERE pickup_time != 0
+GROUP BY runner_id;
 
 -- Result:
+| runner_id | delivered_orders |
+| --------- | ---------------- |
+| 1         | 4                |
+| 2         | 3                |
+| 3         | 1                |
 
 
 -- How many of each type of pizza was delivered?
