@@ -155,8 +155,22 @@ GROUP BY c.order_id;
 
 
 --9. What was the total volume of pizzas ordered for each hour of the day?
+SELECT 
+EXTRACT(HOUR FROM c.order_time) AS hour_of_day,
+COUNT(c.order_id) AS volume_for_hour
+FROM pizza_runner.customer_orders c
+GROUP BY hour_of_day
+ORDER BY hour_of_day;
 
 -- Result:
+| hour_of_day | volume_for_hour |
+| ----------- | --------------- |
+| 11          | 1               |
+| 13          | 3               |
+| 18          | 3               |
+| 19          | 1               |
+| 21          | 3               |
+| 23          | 3               |
 
 
 --10. What was the volume of orders for each day of the week?
