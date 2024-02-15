@@ -174,6 +174,17 @@ ORDER BY hour_of_day;
 
 
 --10. What was the volume of orders for each day of the week?
+SELECT 
+DAYNAME(c.order_time) AS day_of_week,
+COUNT(c.order_id) AS volume_for_day
+FROM pizza_runner.customer_orders c
+GROUP BY day_of_week, DAYOFWEEK(c.order_time)
+ORDER BY DAYOFWEEK(c.order_time);
 
 -- Result:
-
+| day_of_week | volume_for_day |
+| ----------- | -------------- |
+| Wednesday   | 5              |
+| Thursday    | 3              |
+| Friday      | 1              |
+| Saturday    | 5              |
