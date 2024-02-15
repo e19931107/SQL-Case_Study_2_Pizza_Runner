@@ -139,8 +139,19 @@ GROUP BY customer_id;
 
 
 --8. How many pizzas were delivered that had both exclusions and extras?
+SELECT 
+DISTINCT c.order_id,
+COUNT(*) as No_delivered_both_exclusions_and_extras
+FROM pizza_runner.customer_orders c
+LEFT JOIN pizza_runner.runner_orders r
+ON c.order_id = r.order_id
+WHERE pickup_time != 0 and exclusions != 0 and extras != 0
+GROUP BY c.order_id;
 
 -- Result:
+| order_id | No_delivered_both_exclusions_and_extras |
+| -------- | --------------------------------------- |
+| 10       | 1                                       |
 
 
 --9. What was the total volume of pizzas ordered for each hour of the day?
