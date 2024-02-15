@@ -82,8 +82,27 @@ ORDER BY customer_id;
 
 
 --6. What was the maximum number of pizzas delivered in a single order?
+WITH CTE AS
+(
+SELECT 
+c.order_id,
+COUNT(*) as No_pizza_delivered
+FROM pizza_runner.customer_orders c
+LEFT JOIN pizza_runner.runner_orders r
+ON c.order_id = r.order_id
+WHERE pickup_time != 0
+GROUP BY c.order_id
+)
+
+SELECT *
+FROM CTE
+ORDER BY No_pizza_delivered DESC
+LIMIT 1;
 
 -- Result:
+| order_id | No_pizza_delivered |
+| -------- | ------------------ |
+| 4        | 3                  |
 
 
 --7. For each customer, how many delivered pizzas had at least 1 change and how many had no changes?
