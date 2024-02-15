@@ -59,8 +59,27 @@ GROUP BY pizza_id;
 
 
 --5. How many Vegetarian and Meatlovers were ordered by each customer?
+SELECT
+DISTINCT customer_id, pizza_name,
+COUNT(*) as No_of_ordered
+FROM pizza_runner.customer_orders c
+LEFT JOIN pizza_runner.pizza_names p
+ON c.pizza_id = p.pizza_id
+GROUP BY pizza_name, customer_id
+ORDER BY customer_id;
 
 -- Result:
+| customer_id | pizza_name | No_of_ordered |
+| ----------- | ---------- | ------------- |
+| 101         | Meatlovers | 2             |
+| 101         | Vegetarian | 1             |
+| 102         | Meatlovers | 2             |
+| 102         | Vegetarian | 1             |
+| 103         | Meatlovers | 3             |
+| 103         | Vegetarian | 1             |
+| 104         | Meatlovers | 3             |
+| 105         | Vegetarian | 1             |
+
 
 --6. What was the maximum number of pizzas delivered in a single order?
 
