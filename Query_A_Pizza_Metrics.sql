@@ -106,8 +106,36 @@ LIMIT 1;
 
 
 --7. For each customer, how many delivered pizzas had at least 1 change and how many had no changes?
+SELECT 
+DISTINCT customer_id,
+COUNT(*) AS No_change
+FROM pizza_runner.customer_orders c
+LEFT JOIN pizza_runner.runner_orders r
+ON c.order_id = r.order_id
+WHERE pickup_time != 0 and (exclusions != 0 or extras != 0)
+GROUP BY customer_id;
+
+SELECT 
+DISTINCT customer_id,
+COUNT(*) AS No_no_change
+FROM pizza_runner.customer_orders c
+LEFT JOIN pizza_runner.runner_orders r
+ON c.order_id = r.order_id
+WHERE pickup_time != 0 and (exclusions = 0 and extras = 0)
+GROUP BY customer_id;
 
 -- Result:
+| customer_id | No_change |
+| ----------- | --------- |
+| 103         | 3         |
+| 104         | 2         |
+| 105         | 1         |
+
+| customer_id | No_no_change |
+| ----------- | ------------ |
+| 101         | 2            |
+| 102         | 2            |
+| 104         | 1            |
 
 
 --8. How many pizzas were delivered that had both exclusions and extras?
