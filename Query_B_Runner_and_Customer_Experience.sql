@@ -37,8 +37,35 @@ GROUP BY
 
 
 -- 3. Is there any relationship between the number of pizzas and how long the order takes to prepare?
+WITH CTE AS
+(SELECT 
+    c.order_id,
+    COUNT(c.order_id) AS pizza_order,
+    c.order_time,
+    r.pickup_time,
+    TIMESTAMPDIFF(MINUTE, c.order_time, r.pickup_time) AS time
+FROM 
+    pizza_runner.customer_orders AS c
+INNER JOIN 
+    pizza_runner.runner_orders AS r ON c.order_id = r.order_id
+WHERE 
+    r.pickup_time != 0
+GROUP BY  
+    c.order_id, c.order_time, r.pickup_time)
+
+SELECT 
+pizza_order,
+CAST(AVG(time) AS UNSIGNED) AS avg_time
+FROM CTE
+GROUP BY pizza_order;
 
 -- Result:
+| pizza_order | avg_time |
+| ----------- | -------- |
+| 1           | 12       |
+| 2           | 18       |
+| 3           | 29       |
+
 
 -- 4. What was the average distance travelled for each customer?
 
