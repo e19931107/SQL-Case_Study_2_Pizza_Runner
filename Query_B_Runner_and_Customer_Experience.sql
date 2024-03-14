@@ -66,6 +66,10 @@ GROUP BY pizza_order;
 | 2           | 18       |
 | 3           | 29       |
 
+-- Comment:
+1 pizza took around 10 mins, 2 pizzas took around 20 minutes, 3 pizzas took around 30 minutes.
+That means more pizzas created, more time speed.
+But it didn't represent average time per pizza increase, it is also possible the data is not enough to analyze.
 
 -- 4. What was the average distance travelled for each customer?
 
