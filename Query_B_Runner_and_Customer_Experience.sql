@@ -69,11 +69,25 @@ GROUP BY pizza_order;
 -- Comment:
 1 pizza took around 10 mins, 2 pizzas took around 20 minutes, 3 pizzas took around 30 minutes.
 That means more pizzas created, more time speed.
-But it didn't represent average time per pizza increase, it is also possible the data is not enough to analyze.
+But it didn''t represent average time per pizza increase, it is also possible the data is not enough to analyze.
 
 -- 4. What was the average distance travelled for each customer?
+SELECT 
+DISTINCT r.runner_id,
+ROUND(AVG(REGEXP_REPLACE(r.distance, '[^0-9.]+', '')),2) AS avg_distance
+FROM pizza_runner.customer_orders AS c
+LEFT JOIN pizza_runner.runner_orders AS r
+ON c.order_id = r.order_id
+WHERE r.distance != 0
+GROUP BY r.runner_id;
 
 -- Result:
+| runner_id | avg_distance |
+| --------- | ------------ |
+| 1         | 14.47        |
+| 2         | 23.72        |
+| 3         | 10           |
+
 
 -- 5. What was the difference between the longest and shortest delivery times for all orders?
 
