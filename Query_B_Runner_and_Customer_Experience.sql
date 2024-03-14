@@ -17,13 +17,14 @@ GROUP BY WEEK(registration_date);
 
 -- 2. What was the average time in minutes it took for each runner to arrive at the Pizza Runner HQ to pickup the order?
 
-SELECT 
+SELECT
     r.runner_id,
     AVG(ABS(TIMESTAMPDIFF(MINUTE, r.pickup_time, c.order_time))) AS time
 FROM 
     pizza_runner.runner_orders AS r
 LEFT JOIN 
     pizza_runner.customer_orders AS c ON r.order_id = c.order_id
+WHERE r.pickup_time != 0
 GROUP BY 
     r.runner_id;
 
