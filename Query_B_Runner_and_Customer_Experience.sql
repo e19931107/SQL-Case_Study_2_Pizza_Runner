@@ -95,15 +95,14 @@ Therefore, my answer is the average distance by runner.
 
 -- 5. What was the difference between the longest and shortest delivery times for all orders?
 SELECT 
-MAX(REGEXP_REPLACE(r.duration, '[^0-9.]+', '')) as Max_duration,
-Min(REGEXP_REPLACE(r.duration, '[^0-9.]+', '')) as Min_duration
+MAX(REGEXP_REPLACE(r.duration, '[^0-9.]+', ''))-Min(REGEXP_REPLACE(r.duration, '[^0-9.]+', '')) as diff_duration
 FROM pizza_runner.runner_orders r
 WHERE REGEXP_REPLACE(r.duration, '[^0-9.]+', '')>0;
     
 -- Result:
-| Max_duration | Min_duration |
-| ------------ | ------------ |
-| 40           | 10           |
+| diff_duration |
+| ------------- |
+| 30            |
 
 
 -- 6. What was the average speed for each runner for each delivery and do you notice any trend for these values?
