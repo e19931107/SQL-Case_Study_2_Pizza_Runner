@@ -136,5 +136,24 @@ ORDER BY runner_id;
 As the runner is more experienced, the speed increases.
 
 -- 7. What is the successful delivery percentage for each runner?
+WITH CTE AS(
+SELECT 
+r.runner_id,
+COUNT(*) as TTL_delivery,
+SUM(CASE WHEN REGEXP_REPLACE(r.duration, '[^0-9.]+', '')>0 THEN 1 ELSE 0 END) AS Successful_delivery
+FROM pizza_runner.runner_orders r
+GROUP BY r.runner_id
+)
+
+SELECT runner_id,
+ROUND((Successful_delivery/TTL_delivery)*100,0) as Successful_delivery_rate
+FROM CTE;
+
 
 -- Result:
+| runner_id | Successful_delivery_rate |
+| --------- | ------------------------ |
+| 1         | 100                      |
+| 2         | 75                       |
+| 3         | 50                       |
+
