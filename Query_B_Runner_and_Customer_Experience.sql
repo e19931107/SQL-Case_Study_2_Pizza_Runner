@@ -106,8 +106,34 @@ WHERE REGEXP_REPLACE(r.duration, '[^0-9.]+', '')>0;
 
 
 -- 6. What was the average speed for each runner for each delivery and do you notice any trend for these values?
+with CTE as(
+SELECT *,
+REGEXP_REPLACE(r.distance, '[^0-9.]+', '') as new_distance,
+REGEXP_REPLACE(r.duration, '[^0-9.]+', '')/60 as new_duration
+FROM pizza_runner.runner_orders r
+WHERE REGEXP_REPLACE(r.duration, '[^0-9.]+', '')>0)
+
+SELECT order_id,
+runner_id,
+new_distance/new_duration as speed
+FROM CTE
+ORDER BY runner_id;
+
 
 -- Result:
+| order_id | runner_id | speed             |
+| -------- | --------- | ----------------- |
+| 1        | 1         | 37.5              |
+| 2        | 1         | 44.44444444444444 |
+| 3        | 1         | 40.2              |
+| 10       | 1         | 60                |
+| 4        | 2         | 35.1              |
+| 7        | 2         | 60                |
+| 8        | 2         | 93.6              |
+| 5        | 3         | 40                |
+
+-- Comment:
+As the runner is more experienced, the speed increases.
 
 -- 7. What is the successful delivery percentage for each runner?
 
