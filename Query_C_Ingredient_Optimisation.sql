@@ -41,8 +41,45 @@ ORDER BY CTE.pizza_id;
 
 
 --2. What was the most commonly added extra?
+WITH CTE AS(
+SELECT
+  extra,
+  COUNT(*) AS count
+FROM
+  (
+    SELECT
+      order_id,
+      customer_id,
+      pizza_id,
+      exclusions,
+      REGEXP_REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(extras, ',', numbers.n), ',', -1), '[^0-9]', '') AS extra
+    FROM
+      pizza_runner.customer_orders
+    JOIN
+      (SELECT 1 n UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9 UNION ALL SELECT 10) numbers
+    ON
+      CHAR_LENGTH(extras) - CHAR_LENGTH(REPLACE(extras, ',', '')) >= numbers.n - 1
+    WHERE
+      extras > 0
+  ) subquery
+GROUP BY
+  extra
+ORDER BY
+  count DESC)
+
+SELECT pp.topping_name,
+CTE.count
+FROM CTE
+LEFT JOIN pizza_runner.pizza_toppings pp
+ON CTE.extra = pp.topping_id;
 
 -- Result:
+| topping_name | count |
+| ------------ | ----- |
+| Bacon        | 4     |
+| Cheese       | 1     |
+| Chicken      | 1     |
+
 
 --3. What was the most common exclusion?
 
