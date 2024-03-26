@@ -1,6 +1,44 @@
 --1. What are the standard ingredients for each pizza?
+with CTE AS(
+  SELECT
+  pizza_id,
+  SUBSTRING_INDEX(SUBSTRING_INDEX(toppings, ',', numbers.n), ',', -1) AS topping_id
+FROM
+  pizza_runner.pizza_recipes
+JOIN
+  (SELECT 1 n UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9 UNION ALL SELECT 10) numbers
+ON
+  CHAR_LENGTH(toppings) - CHAR_LENGTH(REPLACE(toppings, ',', '')) >= numbers.n - 1
+ORDER BY
+  pizza_id, topping_id DESC
+)
+
+SELECT CTE.pizza_id AS pizza_id,
+pp.topping_name
+FROM CTE
+LEFT JOIN pizza_runner.pizza_toppings pp
+ON CTE.topping_id = pp.topping_id
+ORDER BY CTE.pizza_id;
+
 
 -- Result:
+| pizza_id | topping_name |
+| -------- | ------------ |
+| 1        | Bacon        |
+| 1        | BBQ Sauce    |
+| 1        | Beef         |
+| 1        | Cheese       |
+| 1        | Chicken      |
+| 1        | Mushrooms    |
+| 1        | Pepperoni    |
+| 1        | Salami       |
+| 2        | Cheese       |
+| 2        | Mushrooms    |
+| 2        | Onions       |
+| 2        | Peppers      |
+| 2        | Tomatoes     |
+| 2        | Tomato Sauce |
+
 
 --2. What was the most commonly added extra?
 
