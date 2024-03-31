@@ -83,7 +83,32 @@ ON CTE.extra = pp.topping_id;
 
 --3. What was the most common exclusion?
 
+WITH CTE AS(
+SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(exclusions, ',', numbers.n), ',', -1) as exclusion
+FROM pizza_runner.customer_orders
+JOIN (
+    SELECT 1 n UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 
+) numbers ON CHAR_LENGTH(exclusions) - CHAR_LENGTH(REPLACE(exclusions, ',', '')) >= n - 1
+WHERE exclusions != 'null' AND exclusions != ''
+ORDER BY order_id, exclusion
+  )
+  
+SELECT 
+DISTINCT topping_name,
+COUNT(*) as Count_of_topping_name
+FROM CTE
+LEFT JOIN pizza_runner.pizza_toppings pp
+ON CTE.exclusion = pp.topping_id
+GROUP BY pp.topping_name
+ORDER BY Count_of_topping_name DESC;
+
 -- Result:
+| topping_name | Count_of_topping_name |
+| ------------ | --------------------- |
+| Cheese       | 4                     |
+| Mushrooms    | 1                     |
+| BBQ Sauce    | 1                     |
+
 
 --4. Generate an order item for each record in the customers_orders table in the format of one of the following:
 -- Meat Lovers
