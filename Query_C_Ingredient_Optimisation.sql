@@ -165,7 +165,18 @@ ORDER BY order_id ASC;
 | 10       | 1        | 2, 6       | 1, 4   | Meatlovers |
 
 -- Meat Lovers - Exclude Cheese, Bacon - Extra Mushroom, Peppers
+SELECT pc.order_id, pc.pizza_id, pc.exclusions, pc.extras, pp.pizza_name
+FROM pizza_runner.customer_orders pc
+LEFT JOIN pizza_runner.pizza_names pp ON pc.pizza_id = pp.pizza_id
+WHERE pp.pizza_name = 'Meatlovers' 
+AND pc.exclusions LIKE '%1%'
+AND pc.exclusions LIKE '%4%'
+AND pc.extras LIKE '%6%'
+AND pc.extras LIKE '%9%'
+ORDER BY order_id ASC;
 
+-- Result:
+There are no results to be displayed.
 
 --5. Generate an alphabetically ordered comma separated ingredient list for each pizza order from the customer_orders table and add a 2x in front of any relevant ingredients
 -- For example: "Meat Lovers: 2xBacon, Beef, ... , Salami"
